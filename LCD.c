@@ -5,6 +5,15 @@
 
 #include "systick.h"
 
+void LCD_Command(unsigned char cmd){
+
+	GPIO_PORTA_DATA_R &= ~0xE0; // Rs = 0 for command , Rw = 0 for write , E = 0 in the beginning
+	GPIO_PORTB_DATA_R = cmd; 
+	GPIO_PORTA_DATA_R |= 0x20; //E=1
+	SysTick_Wait1ms(2);
+	GPIO_PORTA_DATA_R &= ~0x20; //E=0
+}	
+
 void LCD_Init (void)		/* LCD Initialize function */
 {
 	SYSCTL_RCGCGPIO_R |= 0x03; //port A , B
