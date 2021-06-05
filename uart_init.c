@@ -3,14 +3,14 @@
 #include "C:\Keil\TExaSware\tm4c123gh6pm.h"
 
 // you have to write the initialization of this function because startup file need this function to build the project without any error..
-void SystemInit(){};
+void SystemInit() {};
 
 
 /**************Delay Function ***********/
 void Delay(unsigned long counter)
 {
 	unsigned long i = 0;
-	for(i=0; i< counter; i++)
+	for (i = 0; i < counter; i++)
 	{
 		/*busy wait*/
 	};
@@ -21,7 +21,7 @@ void Delay(unsigned long counter)
 /************** Send Data to Data Register of UART5**********/
 void UART0_Transmitter(char data)
 {
-	while((UART0_FR_R & 0x20) != 0); // busy wait	
+	while ((UART0_FR_R & 0x20) != 0); // busy wait	
 	UART0_DR_R = data;
 }
 /***********************************************************/
@@ -47,7 +47,14 @@ void uart_initialization(void)
 
 	Delay(1);
 
-	
+	/************* CLOCK ENABLE ***********************/
+	/* enalbe clock for UART2 */
+	SYSCTL_RCGCUART_R |= 0x04;
+	/*enable clock for GPIOPORTD which used by UART2*/
+	SYSCTL_RCGCGPIO_R |= 0x08;
+	/*************************************************/
+
+	Delay(1);
 
 
 	/************* HANDLING UART0 REGISTERS **********************************************************************************/
@@ -62,24 +69,35 @@ void uart_initialization(void)
 	UART0_CTL_R = 0x301;
 	/***************************************************************************************************************************/
 
-	/************* CONFIGURE PORTE REGISTERS ***********************/
+	/************* HANDLING UART2 REGISTERS **********************************************************************************/
+	UART2_CTL_R = 0;
+	/*set the buad rate*/
+	UART2_IBRD_R = 104;
+	UART2_FBRD_R = 11;
+	/* No parity - FIFO enabled - data length=8 bits */
+	UART2_LCRH_R = 0x70;
+	// finally enable the uart pins 4 and 5 and also set the UARTEN bit of this register, see CTL register of uart module..
+	UART2_CTL_R = 0x301;
+	/*************************************************************************************************************************/
+
+	/************* CONFIGURE PORTA REGISTERS ***********************/
 	/*set PA0 and PA1 as digital I/O*/
 	GPIO_PORTE_DEN_R = 0x03;
 	/*use PA0 and PA1 as UART, so handle their AFSEL and PCTL*/
-	GPIO_PORTE_AFSEL_R= 0x03;
-	GPIO_PORTE_PCTL_R=0x11000000;
+	GPIO_PORTE_AFSEL_R = 0x03;
+	GPIO_PORTE_PCTL_R = 0x11000000;
 	/*set analog functionality by 0*/
-	GPIO_PORTE_AMSEL_R=0;
+	GPIO_PORTE_AMSEL_R = 0;
 	/***************************************************************/
 
+	/************* CONFIGURE PORTD REGISTERS ***********************/
+	/*set PD6 and PD7 as digital I/O*/
+	GPIO_PORTD_DEN_R = 0xC0;
+	/*use PD6 and PD7 as UART, so handle their AFSEL and PCTL*/
+	GPIO_PORTD_AFSEL_R = 0xC0;
+	GPIO_PORTD_PCTL_R = 0x11000000;
+	/*set analog functionality by 0*/
+	GPIO_PORTD_AMSEL_R = 0;
+	/***************************************************************/
 }
 /******************************************************************************/
-
-
-
-
-
-
-
-
-
