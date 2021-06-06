@@ -1,7 +1,4 @@
-#include <stdlib.h> 
-#include <stdio.h>
-#include <stdint.h>
-#include "D:/c/Keil/EE319Kware/inc/tm4c123gh6pm.h"
+#include"systick.h"
 
 #define CLEAR_DISPLAY  ((unsigned char) 0X01 )
 #define  DISPLAY_ON_CURSOR_OFF ((unsigned char) 0X0C )

@@ -1,10 +1,5 @@
-#include <stdint.h>
-#include "tm4c123gh6pm.h"
 
-#define NVIC_ST_CTRL_R (*((volatile uint32_t *)0xE000E010))
-#define NVIC_ST_RELOAD_R (*((volatile uint32_t *)0xE000E014))
-#define NVIC_ST_CURRENT_R (*((volatile uint32_t *)0xE000E018))
-
+#include"systick.h"
 // this function initializes systick timer
 void SysTick_Init(void){
 NVIC_ST_CTRL_R = 0; // 1) disable SysTick during setup

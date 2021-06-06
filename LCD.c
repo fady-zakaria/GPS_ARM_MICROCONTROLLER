@@ -1,5 +1,4 @@
 #include"LCD.h"
-#include "systick.h"
 
 void LCD_Command(unsigned char cmd) {
 
