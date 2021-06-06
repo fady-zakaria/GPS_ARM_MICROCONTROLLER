@@ -27,19 +27,19 @@ float dist(float lat1, float lat2, float lon1, float lon2)
     float d=0; //the returned value
     if (l1!=0 && lg1!=0)
     {
-		float phi1 = lat1 * (pi/ 180); //  in radians
-		float phi2 = lat2 * (pi / 180);
-		float delta_phi = (lat2 - lat1) * (pi / 180);
-		float delta_lamda = (lon2 - lon1) * (pi / 180);
-		float a = (sin(delta_phi / 2) * sin(delta_phi / 2)) +
-		cos(phi1) * cos(phi2) *sin(delta_lamda / 2) * sin(delta_lamda / 2);
-		float c = 2 * atan2(sqrt(a), sqrt(1 - a));
-	        d = (R) * (c); // in metres
+				float phi1 = lat1 * (pi/ 180); //  in radians
+				float phi2 = lat2 * (pi / 180);
+				float delta_phi = (lat2 - lat1) * (pi / 180);
+				float delta_lamda = (lon2 - lon1) * (pi / 180);
+				float a = (sin(delta_phi / 2) * sin(delta_phi / 2)) +
+				cos(phi1) * cos(phi2) *sin(delta_lamda / 2) * sin(delta_lamda / 2);
+				float c = 2 * atan2(sqrt(a), sqrt(1 - a));
+				d = (R) * (c); // in metres
     }
     // here we put the values of l2 and lg2 in l1 and lg1 respectively so that
     // the next time we call this function it will calulate distance between the previous point and the 
     // point just read from gps 
     l1=l2;
     lg1=lg2;
-	return d;
+    return d;
 }
