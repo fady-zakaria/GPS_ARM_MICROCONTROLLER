@@ -4,8 +4,12 @@
 #define red 0x02
 #define blue 0x04
 #define green 0x08
-
-void SystemInit (){}
+#define CPAC (*((volatile uint32_t *)0xE000ED88))
+	
+void SystemInit ()
+{
+	CPAC  |= 0X00F00000;
+}
 
 void led_init()
 {
@@ -22,9 +26,9 @@ void led_init()
 }
 
 
-void check_dist(double x)
+void check_dist(float x)
 {
-	if(x>100)
+	if(x>=100)
 	{
 		GPIO_PORTF_DATA_R = red;
 	}
@@ -34,4 +38,3 @@ void check_dist(double x)
 	}
 	
 }
-
