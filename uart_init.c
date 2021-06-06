@@ -1,6 +1,4 @@
-#include "stdint.h"
-#include <stdlib.h>
-#include "C:\Keil\TExaSware\tm4c123gh6pm.h"
+#include "uart.h"
 
 // you have to write the initialization of this function because startup file need this function to build the project without any error..
 void SystemInit() {};
