@@ -1,17 +1,11 @@
-#include <stdint.h>
-#include "E:/keil/EE319Kware/inc/tm4c123gh6pm.h"
-
-#define red 0x02
-#define blue 0x04
-#define green 0x08
-#define CPAC (*((volatile uint32_t *)0xE000ED88))
+#include"led.h"
 	
 void SystemInit ()
 {
 	CPAC  |= 0X00F00000;
 }
 
-void led_init()
+void led_init(void)
 {
     SYSCTL_RCGCGPIO_R |= 0x20; 
     while ((SYSCTL_PRGPIO_R & 0x20 ) == 0) ;
