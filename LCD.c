@@ -1,4 +1,19 @@
-#include"LCD.h"
+#include <stdlib.h> 
+#include <stdio.h>
+#include <stdint.h>
+#include "tm4c123gh6pm.h"
+
+
+
+#define NVIC_ST_CTRL_R (*((volatile uint32_t *)0xE000E010))
+#define NVIC_ST_RELOAD_R (*((volatile uint32_t *)0xE000E014))
+#define NVIC_ST_CURRENT_R (*((volatile uint32_t *)0xE000E018))
+
+#define CLEAR_DISPLAY  ((unsigned char) 0X01 )
+#define  DISPLAY_ON_CURSOR_OFF ((unsigned char) 0X0C )
+#define FUNC_SET_8BIT_2LINE ((unsigned char) 0X038)
+#define DISPLAY_ON_CURSOR_ON ((unsigned char) 0X0E )
+#define SHIFT_CURSOR_RIGHT ((unsigned char) 0X06 )
 
 void LCD_Command(unsigned char cmd) {
 
@@ -64,4 +79,22 @@ void LCD_printString(char* str) {
 		LCD_Data(str[i]);
 		i++;
 	}
+}
+
+void LCD_printFloat(float no)
+{
+//  char toprint[10];
+//  sprintf(toprint, "%f", no);
+//  itoa(no, toprint);
+  
+  int len = snprintf('\0', 0, "%f", no);
+  char* toprint = (char *)malloc(len + 1);
+  snprintf(toprint, len + 1, "%f", no);
+  int j = 0;
+  while (j < len - 3 )
+  {
+    LCD_data(toprint[j]);
+    j++;
+  }
+  free(toprint);
 }
