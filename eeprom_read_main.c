@@ -15,6 +15,16 @@ void SystemInit()
 
 
 ///////////////////////////uart7////////////////////////////////////////
+void UART7_Transmitter(char data){
+while((UART7_FR_R & 0x0020) != 0);
+UART7_DR_R = data;
+} 
+
+
+char UART7_Receiver(void){
+while((UART7_FR_R & 0x0010) != 0);	
+return (char)(UART7_DR_R & 0xFF);
+}
 
 
 
