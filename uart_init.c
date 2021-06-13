@@ -83,7 +83,7 @@ void uart_initialization(void)
 	GPIO_PORTE_DEN_R = 0x03;
 	/*use PA0 and PA1 as UART, so handle their AFSEL and PCTL*/
 	GPIO_PORTE_AFSEL_R = 0x03;
-	GPIO_PORTE_PCTL_R = 0x11000000;
+	GPIO_PORTE_PCTL_R |= 0x11000000;
 	/*set analog functionality by 0*/
 	GPIO_PORTE_AMSEL_R = 0;
 	/***************************************************************/
@@ -93,7 +93,7 @@ void uart_initialization(void)
 	GPIO_PORTD_DEN_R = 0xC0;
 	/*use PD6 and PD7 as UART, so handle their AFSEL and PCTL*/
 	GPIO_PORTD_AFSEL_R = 0xC0;
-	GPIO_PORTD_PCTL_R = 0x11000000;
+	GPIO_PORTD_PCTL_R |= 0x11000000;
 	/*set analog functionality by 0*/
 	GPIO_PORTD_AMSEL_R = 0;
 	/***************************************************************/
