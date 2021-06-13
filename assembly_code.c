@@ -373,5 +373,42 @@ int main()
   
 	}
 
-return 0;
+//eeprom_init();
+	//	UART5_Init();
+
+//if led is green this means we pressed switch
+	GPIO_PORTF_DATA_R = 0x08;  // Green led 
+	//array_of_eeprom[count_eeprom]='\0';
+	//count_eeprom+=1;
+	//float_hex(array_of_eeprom, count_eeprom);
+	//write(array_of_eeprom_tohex ,count_eeprom);
+	//for(l=0;l<count_eeprom;l+=1)
+	//{
+		//temp_transmit=array_of_eeprom[l];
+		//parse_float_transmit_uart(temp_transmit);
+	//}
+	//when led turns off this means we finished writing to eeprom
+	
+while(1)
+	{
+		UART0_Transmitter('E');
+		transmit_string("Enter :\n\r"); // To check the Connection
+		check = UART0_Receiver();
+		if(check=='U'){
+			for(l=0;l<count_eeprom;l+=1)
+			{
+				temp_transmit=array_of_eeprom[l];
+				parse_float_transmit_uart(temp_transmit);
+				//UART7_Transmitter(Coordinates_points[i]);
+				SysTick_Wait1ms(10);
+			}
+			transmit_string("Finish\n"); // To check the Connection
+			break;
+		
+	}
 }
+	GPIO_PORTF_DATA_R &=~ 0x0E;
+	
+	return 0;
+}
+
