@@ -312,6 +312,29 @@ l1=l2;
 lg1=lg2;
 return d;
 }
+void float_hex(float array_of_eeprom[], uint32_t count_eeprom)
+{
+	float point;
+	uint32_t i = 0;
+	while (i < count_eeprom)
+	{
+		if ((i % 2) == 0)
+		{
+			point = (array_of_eeprom[i] - 30) * (10000000);
+			array_of_eeprom_tohex[i] = point;
+		}
+		else
+		{
+			point = (array_of_eeprom[i] - 31) * (10000000);
+			array_of_eeprom_tohex[i] = point;
+		}
+		i += 1;
+	}
+}
+
+
+
+
 
 void check_dist(float x)
 {
