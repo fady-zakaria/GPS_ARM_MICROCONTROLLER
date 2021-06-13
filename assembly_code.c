@@ -664,10 +664,16 @@ int main()
 		 }
 	   SysTick_Wait1ms(100);
 	}
+
 	//eeprom_init();
 	//	UART5_Init();
 
 	//if led is green this means we pressed switch
+
+//eeprom_init();
+	//	UART5_Init();
+
+//if led is green this means we pressed switch
 	GPIO_PORTF_DATA_R = 0x08;  // Green led 
 	//array_of_eeprom[count_eeprom]='\0';
 	//count_eeprom+=1;
@@ -702,3 +708,4 @@ while(1)
 	
 	return 0;
 }
+
