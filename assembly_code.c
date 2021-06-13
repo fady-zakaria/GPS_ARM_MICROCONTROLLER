@@ -338,10 +338,16 @@ void float_hex(float array_of_eeprom[], uint32_t count_eeprom)
 
 void check_dist(float x)
 {
-	if(x>100)
+
+	if (x >= 66 && x <= 70)
 	{
+		//cal_distance_right=((-0.0477)*cal_distance*cal_distance*cal_distance)+((9.6932)*cal_distance*cal_distance)-((753.84)*cal_distance)+19511;
+		cal_distance_right = ((-0.0477)*cal_distance*cal_distance) + ((8.8391)*cal_distance) - (276.87);
 		GPIO_PORTF_DATA_R |= red;
+		LCD_Command(0xc0);
+		parse_float(cal_distance_right);
 	}
+
 }
 
 
