@@ -29,6 +29,7 @@ void SysTick_Wait(uint32_t delay) {
 	while ((NVIC_ST_CTRL_R & 0x00010000) == 0) {};// wait for count flag
 }
 
+
 // Call this function to delay 1ms if given 1 and 2ms if given 2 and so on
 void SysTick_Wait1ms(uint32_t delay) {
 	unsigned long i;
@@ -38,6 +39,18 @@ void SysTick_Wait1ms(uint32_t delay) {
 	}
 }
 //*******************************************************************************************
+///////////////////////////uart7////////////////////////////////////////
+void UART7_Transmitter(char data){
+while((UART7_FR_R & 0x0020) != 0);
+UART7_DR_R = data;
+} 
+
+
+char UART7_Receiver(void){
+while((UART7_FR_R & 0x0010) != 0);	
+return (char)(UART7_DR_R & 0xFF);
+}
+
 
 //////////////////////////////////// Parsing /////////////////////////////////////////
 void parse_float(float dist)
